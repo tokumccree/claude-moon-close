@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.2.0 — 2026-04-04
+- Optional SESSION CLOSED footer — configurable during onboarding (Question 4), defaults to on
+- Ninja mode output: skipped steps run silently, no "None." or "Skipped." lines
+- Everything in one fenced block (moon art + haiku + sign-off) for cleaner rendering
+- `git status --short` instead of `git status`
+
 ## v1.1.0 — 2026-04-04
 - Added `moon-stamp.py` — single script handles phase lookup, image selection, and history tracking
 - Replaces 5 separate tool calls with one bash call for cleaner session output

@@ -89,6 +89,15 @@ Save the choice as `haiku_style` using values: `session`, `whimsical`, `zen`, `r
 
 ---
 
+**Question 4: SESSION CLOSED footer**
+
+"Show a SESSION CLOSED footer at the very end of each close? (yes / no, default: yes)"
+
+- If **yes** or enter: save `session_closed_footer: true`
+- If **no**: save `session_closed_footer: false`
+
+---
+
 **Save config**
 
 Write to `.claude/skills/moon-close/config.md`:
@@ -98,6 +107,7 @@ Write to `.claude/skills/moon-close/config.md`:
 assistant_name: [name]
 personality: [zen | philosopher | warm-playful | big-thinker]
 haiku_style: [session | whimsical | zen | random]
+session_closed_footer: [true | false]
 setup_complete: true
 ---
 ```
@@ -108,6 +118,7 @@ Confirm: "Setup complete. You're ready to close sessions in style. You can re-ru
 - `assistant_name`: Zeno
 - `personality`: warm-playful
 - `haiku_style`: random
+- `session_closed_footer`: true
 - `setup_complete`: true
 
 ---
@@ -155,4 +166,14 @@ Output format — plain text, no markdown:
 
 "[one warm closing remark about the session]"
 — [assistant_name]
+```
+
+If `session_closed_footer: true`, output this after the haiku block — outside the code block, in plain markdown:
+
+```
+---
+
+# ✓ SESSION CLOSED
+
+---
 ```
