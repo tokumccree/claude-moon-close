@@ -112,77 +112,22 @@ Confirm: "Setup complete. You're ready to close sessions in style. You can re-ru
 
 ---
 
-## Step 1: Get current moon phase
+## Step 1: Run the moon stamp script
 
-Check `.claude/skills/moon-close/moon-phase.md`.
+Run this single command — it handles phase lookup, image selection, history tracking, and file updates silently:
 
-- If the `updated` date matches today's date, use the `Phase` value from that file.
-- If the file is missing or the date doesn't match today, fetch live:
-  ```bash
-  # Edit the city to your location — moon phase doesn't vary much by location,
-  # so any major city works fine.
-  curl -s "https://wttr.in/New+York?format=j1"
-  ```
-  Extract `weather[0].astronomy[0].moon_phase`.
-- If both fail, use `Full Moon` as the fallback.
-
-After a live fetch, update `.claude/skills/moon-close/moon-phase.md` with today's date and the phase.
-
-## Step 2: Normalize phase name to folder
-
-| Phase name from API | Folder |
-|---|---|
-| New Moon | new-dark |
-| Waxing Crescent | waxing-crescent |
-| First Quarter | first-quarter |
-| Waxing Gibbous | waxing-gibbous |
-| Full Moon | full |
-| Waning Gibbous | waning-gibbous |
-| Last Quarter | last-quarter |
-| Waning Crescent | waning-crescent |
-
-If the phase doesn't match, use `full`.
-
-## Step 3: Select image
-
-Read `.claude/skills/moon-close/moon-history.md`. Tracks which variants have been shown per phase to avoid repeats.
-
-Format:
-```markdown
----
-first-quarter: []
-full: []
-last-quarter: []
-new-dark: []
-waning-crescent: []
-waning-gibbous: []
-waxing-crescent: []
-waxing-gibbous: []
----
+```bash
+python3 .claude/skills/moon-close/moon-stamp.py
 ```
 
-Selection logic:
-1. Find the used list for the current phase.
-2. Available = [1..12] minus the used list.
-3. If available is empty, reset the list for this phase and use [1..12].
-4. Pick one number at random from available.
+Print the output exactly as returned, inside a triple-backtick code block (no language tag).
 
-If moon-history.md doesn't exist, create it with all phases as empty lists.
-
-## Step 4: Print the image
-
-File path:
-```
-.claude/skills/moon-close/moon-phase-variants/{folder}/{N}-{folder}.txt
+**Before first use:** open `moon-stamp.py` and update the city in the wttr.in URL to your location:
+```python
+curl -s "https://wttr.in/New+York?format=j1"  # change New+York to your city
 ```
 
-Read and print the file contents exactly as stored, inside a triple-backtick code block (no language tag). Do not modify spacing or characters.
-
-## Step 5: Update moon-history.md
-
-Add the chosen number to the used list for this phase and write the file.
-
-## Step 6: Closing haiku
+## Step 2: Closing haiku
 
 Read `personality` and `haiku_style` from config.
 
