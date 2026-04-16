@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.3.0 — 2026-04-16
+- Haiku log: each haiku is now appended to `haiku-log.md` with the date — builds a record over time
+- `/tmp` redirect pattern: moon script now writes to `/tmp/moon_stamp.txt` and is read with the Read tool, decoupling script execution from display (allows commits or other work in between)
+- Date detection: `date +%Y-%m-%d` run at startup and held as `LOG_DATE` for accurate date fields
+
 ## v1.2.0 — 2026-04-04
 - Optional SESSION CLOSED footer — configurable during onboarding (Question 4), defaults to on
 - Ninja mode output: skipped steps run silently, no "None." or "Skipped." lines

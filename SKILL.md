@@ -123,22 +123,26 @@ Confirm: "Setup complete. You're ready to close sessions in style. You can re-ru
 
 ---
 
-## Step 1: Run the moon stamp script
+## Step 1: Date detection
+
+Run `date +%Y-%m-%d` and hold as `LOG_DATE`. Use this for all date fields (haiku log). Never derive the date from injected context.
+
+## Step 2: Run the moon stamp script
 
 Run this single command — it handles phase lookup, image selection, history tracking, and file updates silently:
 
 ```bash
-python3 .claude/skills/moon-close/moon-stamp.py
+python3 .claude/skills/moon-close/moon-stamp.py > /tmp/moon_stamp.txt
 ```
 
-Print the output exactly as returned, inside a triple-backtick code block (no language tag).
+Do NOT display output yet. The script writes to `/tmp/moon_stamp.txt` — you'll read and display it in Step 4.
 
 **Before first use:** open `moon-stamp.py` and update the city in the wttr.in URL to your location:
 ```python
 curl -s "https://wttr.in/New+York?format=j1"  # change New+York to your city
 ```
 
-## Step 2: Closing haiku
+## Step 3: Closing haiku
 
 Read `personality` and `haiku_style` from config.
 
@@ -155,9 +159,28 @@ Read `personality` and `haiku_style` from config.
 
 Write one haiku: 5 / 7 / 5. Simple and a little surprising. No heavy metaphor stacking.
 
-Output format — plain text, no markdown:
+Compose the closing remark too. Hold both — do not display yet.
+
+**Write haiku to log:**
+
+Append to `.claude/skills/moon-close/haiku-log.md`:
 
 ```
+## [LOG_DATE]
+[line one]
+[line two]
+[line three]
+```
+
+Create the file if it doesn't exist.
+
+## Step 4: Display
+
+Read `/tmp/moon_stamp.txt` using the Read tool and display the closing block in a fenced code block (no language tag):
+
+```
+[moon art from /tmp/moon_stamp.txt]
+
 [haiku line one]
 [haiku line two]
 [haiku line three]
@@ -168,7 +191,7 @@ Output format — plain text, no markdown:
 — [assistant_name]
 ```
 
-If `session_closed_footer: true`, output this after the haiku block — outside the code block, in plain markdown:
+If `session_closed_footer: true`, output this after the block — outside the code block, in plain markdown:
 
 ```
 ---
