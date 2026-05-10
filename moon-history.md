@@ -1,6 +1,6 @@
 ---
 first-quarter: []
-full: []
+full: [9]
 last-quarter: []
 new-dark: []
 waning-crescent: []
