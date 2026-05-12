@@ -1,8 +1,8 @@
 ---
-updated: 2026-05-11
+updated: 2026-05-12
 ---
 
 # Moon Phase
 
 **Phase:** Waning Crescent
-**Illumination:** 30.1%
+**Illumination:** 20.6%
